@@ -1,34 +1,29 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-
-List<string> shoppingList = new List<string>();
+﻿List<string> shoppingList = new List<string>();
 List<decimal> itemTotal = new List<decimal>();
 
 Dictionary<string, decimal> foodList = new Dictionary<string, decimal>()
 {
-    { "Chicken", 5.50m},
-    { "Hamburger" , 6.00m},
-    { "Bread",2.00m },
-    { "Milk", 4.00m },
-    { "Eggs" ,3.00m},
-    { "Butter",1.50m },
-    { "Orange Juice", 5.50m },
-    { "Beer" ,6.00m}
+    {"Beer", 6.00m},
+    {"Bread", 2.00m},
+    {"Butter", 1.00m},
+    {"Chicken", 5.50m},
+    {"Eggs", 3.00m},
+    {"Hamburger", 6.00m},
+    {"Juice", 5.50m},
+    {"Milk", 4.00m}
 };
 
-bool addItem = true;
 Console.WriteLine($"Welcome to After Hours Food Mart!{Environment.NewLine}");
 
+bool addItem = true;
 
 while (addItem)
 {
     foreach (var food in foodList)
     {
-
-        Console.WriteLine($"{food.Key} and cost is ${food.Value}!");
-
+        var index = foodList.ToList().IndexOf(food);
+        Console.WriteLine($"{index + 1}-{food.Key} and cost is ${food.Value}!");
     }
-
 
 
     Console.WriteLine($"Please enter and Item you would like to add to your shopping list!");
@@ -38,35 +33,31 @@ while (addItem)
     if (isValid)
     {
         shoppingList.Add(shoppingItem);
-        Console.WriteLine("Would you like to add another item type y or n go get your total!");
+        shoppingList.Sort();
+        Console.WriteLine("Would you like to add another item type y or n to get your total!");
         addItem = Console.ReadLine().ToLower().Trim() == "y";
     }
     else
     {
         Console.WriteLine($"You did not enter a valid item {shoppingItem} {Environment.NewLine}");
-        Console.WriteLine("Would you like to add another item type y or n go get your total!");
+        Console.WriteLine("Would you like to add another item type y or n to get your total!");
         addItem = Console.ReadLine().ToLower().Trim() == "y";
-
     }
 }
 
-decimal totalCost = 0;
 
 if (!addItem)
 {
     foreach (var item in shoppingList)
     {
-        IEnumerable<decimal> itemCost = foodList.Where(kv => kv.Key.ToLower().Contains(item)).Select(x =>x.Value);
-        Console.WriteLine($"You have {item} in your cart you cost it ${itemCost.FirstOrDefault()}");
+        IEnumerable<decimal> itemCost = foodList.Where(kv => kv.Key.ToLower().Contains(item)).Select(x => x.Value);
+        Console.WriteLine($"You have {item} in your cart your cost is ${itemCost.FirstOrDefault()}");
         itemTotal.Add(itemCost.FirstOrDefault());
     }
 
     decimal orderTotal = itemTotal.Sum();
-    Console.WriteLine($"Your total is ${orderTotal}");
+    Console.WriteLine($"Your order total is ${orderTotal}");
 }
-
-
-
 
 
 bool ValidItem(string shoppingItem)
@@ -96,21 +87,13 @@ bool ValidItem(string shoppingItem)
             return true;
 
 
-        case "orangejuice":
+        case "juice":
             return true;
 
 
         case "beer":
             return true;
-
-            
     }
+
     return false;
 }
-
-
-
-
-
-
-
