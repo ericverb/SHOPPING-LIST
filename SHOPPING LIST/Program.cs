@@ -27,7 +27,7 @@ while (addItem)
 
 
     Console.WriteLine($"Please enter and Item you would like to add to your shopping list!");
-    string shoppingItem = Console.ReadLine().ToLower().Trim().Replace(" ", "");
+    string shoppingItem = Console.ReadLine()!.ToLower().Trim().Replace(" ", "");
     bool isValid = ValidItem(shoppingItem);
 
     if (isValid)
@@ -35,13 +35,13 @@ while (addItem)
         shoppingList.Add(shoppingItem);
         shoppingList.Sort();
         Console.WriteLine("Would you like to add another item type y or n to get your total!");
-        addItem = Console.ReadLine().ToLower().Trim() == "y";
+        addItem = Console.ReadLine()!.ToLower().Trim() == "y";
     }
     else
     {
         Console.WriteLine($"You did not enter a valid item {shoppingItem} {Environment.NewLine}");
         Console.WriteLine("Would you like to add another item type y or n to get your total!");
-        addItem = Console.ReadLine().ToLower().Trim() == "y";
+        addItem = Console.ReadLine()!.ToLower().Trim() == "y";
     }
 }
 
