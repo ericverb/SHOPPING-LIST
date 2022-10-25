@@ -22,7 +22,7 @@ while (addItem)
     foreach (var food in foodList)
     {
         var index = foodList.ToList().IndexOf(food);
-        Console.WriteLine($"{index + 1}-{food.Key} and cost is ${food.Value}!");
+        Console.WriteLine($"{food.Key} and cost is ${food.Value}!");
     }
 
 
